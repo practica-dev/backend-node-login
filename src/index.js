@@ -1,11 +1,12 @@
 import express from "express";
 
 const app = express();
+const port = 3000;
 
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
   res.send("Hola Mundo!");
 });
 
-app.listen(3000, function () {
-  console.log("Aplicación ejemplo, escuchando el puerto 3000!");
+app.listen(port, () => {
+  console.log(`Server listen http://localhost:${port}/`);
 });
