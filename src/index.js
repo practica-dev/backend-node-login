@@ -1,4 +1,5 @@
 import express from "express";
+import { login, logout } from "./controllers/index.controllers.js";
 
 const app = express();
 const port = 3000;
@@ -11,8 +12,18 @@ app.get("/", (req, res) => {
 
 app.post('/login', (req, res) => {
   const { user, password } = req.body;
-  console.log({ user, password });
-  res.send("login!");
+  try {
+    const token = login(user, password);
+    res.send(token);
+  } catch (error) {
+    const { name, message } =  error;
+    res.json({ name, message });
+  }
+});
+
+app.post('logout', (req, res) => {
+  const message = logout(req.headers.token);
+  res.json(message);
 });
 
 app.listen(port, () => {
